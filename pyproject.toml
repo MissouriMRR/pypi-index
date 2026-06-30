@@ -1,0 +1,9 @@
+[project]
+name = "pypi-index"
+version = "1.0.0"
+description = "The team's personal pypi index for hosting team packages and patches of existing packages."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "dumb-pypi>=1.15.0",
+]
