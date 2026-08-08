@@ -2,7 +2,6 @@ name: Deploy PyPI Index to GitHub Pages
 
 on:
   push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -11,7 +10,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -31,6 +30,16 @@ jobs:
             --packages-url ../../packages \
             --title "Multirotor PyPI Index"
 
+          # remote-hosted wheels: one list file per upstream base URL
+          uv run dumb-pypi --package-list PACKAGES.nvidia --output-dir _remote \
+            --packages-url https://developer.download.nvidia.com/compute/redist/jp/v512/pytorch \
+            --title "Multirotor PyPI Index"
+
+          for pkg in torch; do
+            cp -r _remote/simple/$pkg _site/simple/
+            cp -r _remote/pypi/$pkg  _site/pypi/
+          done
+
           cp -r packages _site/
 
       - name: Upload Pages artifact
@@ -40,6 +49,7 @@ jobs:
 
   deploy:
     needs: build
+    if: github.ref == 'refs/heads/develop'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
