@@ -84,3 +84,4 @@ pymavlink-2.4.49.post1-cp314-cp314-musllinux_1_2_i686.whl
 pymavlink-2.4.49.post1-cp313-cp313-win_arm64.whl
 torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl
 torchvision-0.16.2+c6f3977-cp38-cp38-linux_aarch64.whl
+torch2trt-0.5.0-cp38-cp38-linux_aarch64.whl
